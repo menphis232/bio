@@ -41,13 +41,19 @@ export const Header: React.FC<Props> = ({ title }) => {
                     <h5 style={{ margin: "0" }}>{title}</h5>
                 </IonTitle>
                 <IonButtons slot="end">
+                    {
+                        title!=='Sincronizar' ?
                     <IonButton
+
                         routerLink="/dashboard/sync"
                         //fill="outline"
                         //shape="round"
                     >
                         <IonIcon icon={sync} color="light"></IonIcon>
                     </IonButton>
+                    :
+                    ''
+                    }
                 </IonButtons>
             </IonToolbar>
         </>
