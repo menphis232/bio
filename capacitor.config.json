@@ -1,0 +1,6 @@
+{
+     "appId": "com.bioonix.siempreool",
+     "appName": "SiempreOL",
+     "webDir": "build",
+     "bundledWebRuntime": false
+}

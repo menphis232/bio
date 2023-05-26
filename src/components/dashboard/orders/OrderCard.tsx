@@ -1,0 +1,109 @@
+import {
+    IonButton,
+    IonButtons,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonIcon,
+    IonText,
+} from "@ionic/react";
+import { Order, SaveOrder } from "../../../../types/order";
+import { STATUS_NAMES } from "../../../utils/status";
+import { Status } from "../../../utils/status";
+import { parse } from "date-fns";
+import { eye } from "ionicons/icons";
+
+interface Props {
+    order: Order | SaveOrder;
+    displayName: boolean;
+    openDetail: (order: Order) => void;
+}
+
+export const OrderCard: React.FC<Props> = ({
+    order,
+    displayName,
+    openDetail,
+}) => {
+
+    const statusColor: { [ind: number]: string } = {
+        1: "warning",
+        2: "success",
+        3: "secondary",
+        4: "primary",
+        5: "danger",
+    };
+
+    function instanceOfOrder(order: SaveOrder | Order): order is Order {
+        return "idStatusOrder" in order;
+    }
+
+    return (
+        <IonCard>
+            <IonCardHeader>
+                <IonCardTitle
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                    <strong>
+                        {displayName
+                            ? order.fullNameClient
+                            : `Nro. ${order.idOrderH}`}
+                    </strong>
+                    <IonButtons>
+                        <IonButton onClick={() => openDetail(order as Order)}>
+                            <IonIcon icon={eye} color="primary"></IonIcon>
+                        </IonButton>
+                    </IonButtons>
+                </IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+                <IonCardSubtitle style={{ fontSize: "1.2rem" }}>
+                    <strong>Total: </strong>
+                    {instanceOfOrder(order) && (
+                        <IonText color="success"><strong>${order.totalBot}</strong></IonText>
+                    )}
+                    <strong> Estado: </strong>
+                    <IonText
+                        color={
+                            instanceOfOrder(order)
+                                ? statusColor[order.idStatusOrder]
+                                : "warning"
+                        }
+                    >
+                        <strong>{` ${instanceOfOrder(order)
+                                ? STATUS_NAMES[order.idStatusOrder]
+                                : STATUS_NAMES[Status.IN_PROCESS]
+                            }`}</strong>
+                    </IonText>
+                </IonCardSubtitle>
+                {instanceOfOrder(order) && (
+                    <p>
+                        <strong>Fecha de creacion: </strong>
+                        {parse(
+                            order.created_at,
+                            "yyyy-MM-dd HH:mm",
+                            new Date()
+                        ).toLocaleDateString("es-ES", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        })}
+                    </p>
+                )}
+                {instanceOfOrder(order) && (
+                    <p>
+                        <strong>Ultima actualizacion: </strong>
+                        {parse(
+                            order.updated_at,
+                            "yyyy-MM-dd HH:mm",
+                            new Date()
+                        ).toLocaleDateString("es-ES", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        })}
+                    </p>
+                )}
+            </IonCardContent>
+        </IonCard>
+    );
+};

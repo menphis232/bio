@@ -1,0 +1,7 @@
+{
+  "name": "biosales",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SiempreOL</string>
+    <string name="title_activity_main">SiempreOL</string>
+    <string name="package_name">com.bioonix.siempreool</string>
+    <string name="custom_url_scheme">com.bioonix.siempreool</string>
+</resources>
