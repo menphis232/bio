@@ -34,20 +34,30 @@ export const ClientsList: React.FC = () => {
 
     const openClientModal = (client: Client) => {
         setClientData(client);
-        presentClient();
+        console.log('asdads')
+        setOpenModal(true)
+        // presentClient();
     };
 
     const closeClientModal = () => {
-        dismissClient();
+        // dismissClient();
     };
 
-    const [presentClient, dismissClient] = useIonModal(ClientDetail, {
+    // const [presentClient, dismissClient] = useIonModal(<></>, {
+    //     client: clientData,
+    //     closeClientModal,
+    // });
+
+    const [openModal, setOpenModal] = useState(false)
+    
+    const [presentDetail, dismissDetail] = useIonModal(<>asd</>, {
         client: clientData,
         closeClientModal,
     });
 
     return (
         <>
+        
             <IonPage>
                 <IonHeader>
                     <Header title="Clientes" />
@@ -69,6 +79,8 @@ export const ClientsList: React.FC = () => {
                             />
                         ))}
                 </IonContent>
+                
+                <ClientDetail {...{client:clientData,closeClientModal: ()=>setOpenModal(false), openModal}} />
             </IonPage>
         </>
     );
