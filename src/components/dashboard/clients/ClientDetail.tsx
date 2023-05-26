@@ -193,7 +193,35 @@ export const ClientDetail: React.FC<Props> = ({ client, closeClientModal, openMo
                                     </IonHeader>
 
                                     <IonContent className="ion-padding">
-                                    <button onClick={() => console.log('asd')} >asdasd</button>
+                                    <button onClick={() => console.log('asd')} ></button>
+
+                                    <p style={{textAlign: "justify"}} >
+                                    Productos y Descripción:
+
+Nuestros productos de queso son elaborados con ingredientes de alta calidad y siguiendo procesos artesanales/tradicionales.
+Ofrecemos una variedad de quesos, que incluyen queso fresco, queso semicurado, queso curado, queso de cabra, queso azul, entre otros. Cada queso tiene características y sabores únicos.
+Precios y Pagos:
+
+Los precios de nuestros quesos están indicados en nuestra lista de precios actualizada.
+Todos los precios están expresados en la moneda local y no incluyen impuestos aplicables.
+Aceptamos diferentes métodos de pago, como efectivo, tarjetas de crédito/débito y transferencias bancarias. Los detalles de pago se proporcionarán al momento de realizar la compra.
+Pedido y Entrega:
+
+Los pedidos se pueden realizar a través de nuestro sitio web, por teléfono o visitando nuestro establecimiento físico.
+La disponibilidad de los quesos puede variar según la demanda y la temporada. Nos esforzamos por mantener un inventario adecuado, pero recomendamos realizar el pedido con anticipación para garantizar la disponibilidad del producto deseado.
+La entrega de los productos se realizará en la dirección especificada por el cliente. Se pueden aplicar cargos adicionales por el envío, dependiendo de la ubicación y el volumen del pedido.
+Política de Devolución:
+
+Si por alguna razón no está satisfecho con el producto recibido, le solicitamos que nos lo comunique de inmediato.
+Evaluaremos cada caso de forma individual y, si procede, realizaremos el reemplazo o reembolso correspondiente. Es posible que se requiera la devolución del producto original para procesar la solicitud de devolución.
+Conservación y Consumo:
+
+Para garantizar la calidad y frescura de nuestros quesos, se recomienda almacenarlos adecuadamente siguiendo las instrucciones de conservación proporcionadas.
+Se proporcionarán instrucciones de consumo, incluyendo sugerencias de maridaje, para que pueda disfrutar plenamente de nuestros quesos.
+Responsabilidad:
+
+Nos esforzamos por garantizar la calidad de nuestros productos y la satisfacción del cliente. Sin embargo, no nos hacemos responsables de problemas derivados del mal manejo, almacenamiento o uso inadecuado de los productos de queso una vez entregados.
+                                    </p>
                                     
                                     </IonContent>
                                 </IonModal>

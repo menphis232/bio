@@ -44,7 +44,7 @@ const ProductItem: React.FC<Props> = ({
                         }}
                     >
                         <IonImg
-                            src={`${ip}:${environment.port}/product/${product.urlImagenProduct}`}
+                            src={`${ip}/product/${product.urlImagenProduct}`}
                             alt="producto"
                         />
                     </IonAvatar>

@@ -300,7 +300,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
                             maxWidth: "300px",
                             height: "auto",
                         }}
-                        src={`${ip}:${environment.port}/product/${product?.urlImagenProduct}`}
+                        src={`${ip}/product/${product?.urlImagenProduct}`}
                         alt="Producto"
                     />
                     <IonButton
