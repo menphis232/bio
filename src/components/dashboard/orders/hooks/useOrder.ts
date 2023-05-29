@@ -435,6 +435,7 @@ export function useOrder() {
         await setData(LAST_SYNC_ORDERS, syncDate);
         setLastSync(new Date());
         await setData(MY_ORDERS, value);
+        console.log('valor',value)
         return value;
     };
 

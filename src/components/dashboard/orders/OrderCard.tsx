@@ -14,6 +14,9 @@ import { STATUS_NAMES } from "../../../utils/status";
 import { Status } from "../../../utils/status";
 import { parse } from "date-fns";
 import { eye } from "ionicons/icons";
+import dayjs from "dayjs";
+import 'dayjs/locale/es';
+dayjs.locale('es')
 
 interface Props {
     order: Order | SaveOrder;
@@ -63,7 +66,7 @@ export const OrderCard: React.FC<Props> = ({
                     {instanceOfOrder(order) && (
                         <IonText color="success"><strong>${order.totalBot}</strong></IonText>
                     )}
-                    <strong> Estado: </strong>
+                    <strong style={{ marginLeft:'20px'}}> Estado: </strong>
                     <IonText
                         color={
                             instanceOfOrder(order)
@@ -79,28 +82,18 @@ export const OrderCard: React.FC<Props> = ({
                 </IonCardSubtitle>
                 {instanceOfOrder(order) && (
                     <p>
-                        <strong>Fecha de creacion: </strong>
-                        {parse(
-                            order.created_at,
-                            "yyyy-MM-dd HH:mm",
-                            new Date()
-                        ).toLocaleDateString("es-ES", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                        })}
+                        <strong>Fecha de creación: </strong>
+                        {
+                            dayjs(order.created_at).format('DD/MM/YYYY')
+                        }
                     </p>
                 )}
                 {instanceOfOrder(order) && (
                     <p>
-                        <strong>Ultima actualizacion: </strong>
-                        {parse(
-                            order.updated_at,
-                            "yyyy-MM-dd HH:mm",
-                            new Date()
-                        ).toLocaleDateString("es-ES", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                        })}
+                        <strong>Ultima actualización: </strong>
+                        {
+                        dayjs(order.updated_at).format('DD/MM/YYYY')
+                        }
                     </p>
                 )}
             </IonCardContent>
