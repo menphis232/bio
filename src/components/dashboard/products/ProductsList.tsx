@@ -67,6 +67,7 @@ const ProductsList: React.FC = () => {
     }, [user.currentBusiness]);
 
     const handleSearchProducts = (e: any) => {
+        console.log('aui buscamos')
         setQuery((prev) => ({ ...prev, search: e.target.value }));
     };
     // End Products

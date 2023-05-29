@@ -63,16 +63,19 @@ const FiltersModal: React.FC<Props> = ({
     };
 
     const onReset = () => {
-        setQuery({
+
+        onSubmit({
             brand: 0,
-            category: 0,
+            category:0,
             isOnPromotion: false,
             line: 0,
             maxPrice: 0,
             minPrice: 0,
             search: "",
             subCategory: 0,
-        });
+        })
+      
+        // setQuery();
         reset();
     };
 
@@ -180,12 +183,12 @@ const FiltersModal: React.FC<Props> = ({
                                     required: false,
                                 })}
                             >
-                                {categories.map((category) => (
+                                {categories.map((cate) => (
                                     <IonSelectOption
-                                        key={category.idProductFamily}
-                                        value={category.idProductFamily}
+                                        key={cate.idProductFamily}
+                                        value={cate.idProductFamily}
                                     >
-                                        {category.name}
+                                        {cate.name}
                                     </IonSelectOption>
                                 ))}
                             </IonSelect>
@@ -211,7 +214,7 @@ const FiltersModal: React.FC<Props> = ({
                         </IonItem>
                         <IonItem style={{ marginBottom: "1rem", padding: "0" }}>
                             <IonLabel>
-                                <strong>Linea:</strong>
+                                <strong>Línea:</strong>
                             </IonLabel>
                             <IonSelect
                                 {...register("line", {
