@@ -91,7 +91,7 @@ export const CartProductList: React.FC<Props> = ({
                             <IonItem key={product.idProduct}>
                                 <IonAvatar style={{ marginRight: '4px' }}>
                                     <IonImg
-                                        src={`${ip}:${environment.port}/product/${product.urlImagenProduct}`}
+                                        src={`${ip}/product/${product.urlImagenProduct}`}
                                         alt="producto"
                                     />
                                 </IonAvatar>

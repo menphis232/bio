@@ -6,6 +6,7 @@ import {
     IonHeader,
     IonIcon,
     IonImg,
+    IonInput,
     IonItem,
     IonLabel,
     IonList,
@@ -19,7 +20,7 @@ import {
 } from "@ionic/react";
 import { Product } from "../../../../types/product";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CURRENT_ORDER, useStorage } from "../../../hooks/useStorage";
 import { useOrder } from "../orders/hooks/useOrder";
 import {
@@ -51,6 +52,9 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [order, setOrder] = useState<SaveOrder>();
+    const [cantidad, setCantidad] = useState(1)
+    const form = useRef(null)
+
 
     useEffect(() => {
         console.log(product, "product in addProduct");
@@ -113,7 +117,6 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
             });
             return dismiss();
         }
-
         setLoading(true);
         await addProductToOrder({
             idOrderHFk: currentOrderId as number,
@@ -164,6 +167,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
     function calculateSubTotal(product: Product, quantity: number) {
         let subTotal = 0;
         if (product.idUnitMeasureSaleFk === UNIT_TYPE.KG) {
+            console.log('total ', product)
             subTotal =
                 quantity *
                 (product.unitweight *
@@ -205,6 +209,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
             </IonHeader>
             <IonContent>
                 <form
+                    ref={form}
                     onSubmit={handleSubmit(onSubmit)}
                     style={{
                         padding: "1rem",
@@ -227,9 +232,21 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
                                 }`}
                         >
                             <IonLabel>
-                                <strong>Cantidad:</strong>
+                                <strong  >Cantidad:</strong>
                             </IonLabel>
-                            <input
+{/* console.log(calculateSubTotal(product, parseFloat(e.detail.value)).toFixed(2) */}
+                            <IonInput type="text" inputMode="numeric"  
+                                onIonChange={(e)=> e.detail.value ? setCantidad(parseFloat(e.detail.value)) : setCantidad(1)}
+                             {...register("quantityProduct", {
+                                required: 'La cantidad es requerida',
+                                min: {
+                                    value: 1,
+                                    message:
+                                        "La cantidad debe ser mayor a 0",
+                                },
+                            })}
+                             placeholder="000"></IonInput>
+                            {/* <input
                                 style={{
                                     padding: '10px 0 10px 10px',
                                     background: 'var(--background)',
@@ -240,6 +257,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
 
                                 }}
                                 type="number"
+                                inputMode="numeric"
                                 {...register("quantityProduct", {
                                     required: 'La cantidad es requerida',
                                     min: {
@@ -248,7 +266,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
                                             "La cantidad debe ser mayor a 0",
                                     },
                                 })}
-                            />
+                            /> */}
                             <IonNote slot="error">
                                 {errors.quantityProduct?.type === "min" &&
                                     errors.quantityProduct.message}
@@ -290,7 +308,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
                                         padding: "10px 0 10px 8px",
                                     }}
                                 >
-                                    <strong>${calculateSubTotal(product, quantity).toFixed(2)}</strong>
+                                    <strong>${calculateSubTotal(product, cantidad).toFixed(2)}</strong>
                                 </IonText>
                             </IonCol>
                         </IonRow>

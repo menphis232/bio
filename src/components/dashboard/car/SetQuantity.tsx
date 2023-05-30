@@ -82,7 +82,7 @@ export const SetQuantity: React.FC<Props> = ({
                         >
                             <IonLabel>Cantidad</IonLabel>
                             <IonInput
-                                type="number"
+                                type="text" inputMode="numeric"
                                 {...register("weight", {
                                     required: 'La cantidad es requerida',
                                     min: {
