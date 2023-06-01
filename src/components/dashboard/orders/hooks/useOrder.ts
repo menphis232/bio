@@ -194,7 +194,7 @@ export function useOrder() {
         delete ordersNew[user.currentBusiness]
         console.log('DELETE ARRAY ',ordersNew)
         await removeData(CURRENT_ORDER)
-        // await setData(CURRENT_ORDER, deletes);
+        await setData(CURRENT_ORDER, ordersNew);
         setOrderExist(false); // test
         setCurrentOrder(null);//
         if (!connection || thereIsRequest) {
