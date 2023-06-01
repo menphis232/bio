@@ -183,7 +183,18 @@ export function useOrder() {
     const changeStatus = async (status: number, orderId: number) => {
         const connection = await currentNetworkStatus();
         const requests = await getData(REQUEST);
+        console.log('este es el request',requests)
         const thereIsRequest = (!!requests && requests.length > 0)
+        let orders: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
+        let ordersNew=await getData(CURRENT_ORDER);
+        console.log('este se supone seria array',ordersNew)
+        let deletes= delete ordersNew[user.currentBusiness]
+        // orders[user.currentBusiness] = updated;
+        console.log('aqui para borrar',deletes)
+        await removeData(CURRENT_ORDER)
+        await setData(CURRENT_ORDER, deletes);
+        setOrderExist(false); // test
+        setCurrentOrder(null);//
         if (!connection || thereIsRequest) {
             let orders: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
             let ordersNew=await getData(CURRENT_ORDER);
