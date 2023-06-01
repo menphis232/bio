@@ -188,11 +188,13 @@ export function useOrder() {
         let orders: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
         let ordersNew=await getData(CURRENT_ORDER);
         console.log('este se supone seria array',ordersNew)
-        let deletes= delete ordersNew[user.currentBusiness]
+        console.log('index array ',user.currentBusiness)
+        // let deletes= delete ordersNew[user.currentBusiness]
         // orders[user.currentBusiness] = updated;
-        console.log('aqui para borrar',deletes)
+        delete ordersNew[user.currentBusiness]
+        console.log('DELETE ARRAY ',ordersNew)
         await removeData(CURRENT_ORDER)
-        await setData(CURRENT_ORDER, deletes);
+        // await setData(CURRENT_ORDER, deletes);
         setOrderExist(false); // test
         setCurrentOrder(null);//
         if (!connection || thereIsRequest) {
