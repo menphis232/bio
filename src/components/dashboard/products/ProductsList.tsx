@@ -95,6 +95,7 @@ const ProductsList: React.FC = () => {
     const [presentToast] = useIonToast();
 
     const openAddModal = (product: Product) => {
+        console.log('esta es la orden',orderExist)
         if (!orderExist) {
             presentToast({
                 message: `Agrega un pedido antes de agregar un producto`,

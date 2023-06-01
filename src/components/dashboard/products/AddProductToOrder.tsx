@@ -166,7 +166,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
 
     function calculateSubTotal(product: Product, quantity: number) {
         let subTotal = 0;
-        if (product.idUnitMeasureSaleFk === UNIT_TYPE.KG) {
+        if (product.idUnitMeasureSaleFk === UNIT_TYPE.KG && product.unitweight >0) {
             console.log('total ', product)
             subTotal =
                 quantity *
@@ -274,7 +274,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
                                     errors.quantityProduct.message}
                             </IonNote>
                         </IonItem>
-                        {product.idUnitMeasureSaleFk === UNIT_TYPE.KG && (
+                        {product.idUnitMeasureSaleFk === UNIT_TYPE.KG && product.unitweight > 0 && (
                             <>
                                 <IonRow
                                     style={{

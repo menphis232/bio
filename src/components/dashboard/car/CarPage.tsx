@@ -34,6 +34,7 @@ const Car: React.FC = () => {
         getOrderById,
         removeProduct,
         calculateTotalRequest,
+        calculateTotal,
         confirmProductQuantity,
         changeStatus,
         reset
@@ -70,6 +71,28 @@ const Car: React.FC = () => {
             setTotal(total);
         }
     };
+   
+
+    // function calculateTotal(item: OrderItem) {
+    //     let subTotal = 0;
+    //     let total = 0;
+    //     if (item.idUnitMeasureSaleFk === UNIT_TYPE.KG && item.unitweight >0) {
+    //         subTotal =
+    //             item.weight *
+    //             (item.unitweight *
+    //                 (item.isPromo === "1"
+    //                     ? item.marketPrice
+    //                     : item.priceSale));
+    //     } else {
+    //         subTotal =
+    //             item.weight *
+    //             (item.isPromo === "1"
+    //                 ? item.marketPrice
+    //                 : item.priceSale);
+    //     }
+    //     total+=subTotal
+    //     return total
+    // }
 
     useEffect(() => {
         console.log(currentOrder);

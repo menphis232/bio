@@ -60,7 +60,7 @@ export const CartProductList: React.FC<Props> = ({
 
     function calculateSubTotal(item: OrderItem) {
         let subTotal = 0;
-        if (item.idUnitMeasureSaleFk === UNIT_TYPE.KG) {
+        if (item.idUnitMeasureSaleFk === UNIT_TYPE.KG && item.unitweight >0) {
             subTotal =
                 item.weight *
                 (item.unitweight *
@@ -97,7 +97,7 @@ export const CartProductList: React.FC<Props> = ({
                                 </IonAvatar>
                                 <IonLabel>
                                     <p>{product.nameProduct}</p>
-                                    <small>{`$${product.isPromo === "1" ? product.marketPrice : product.priceSale}`}{product.idUnitMeasureSaleFk === UNIT_TYPE.KG && ` x kg | ${product.unitweight}kg`}</small>
+                                    <small>{`$${product.isPromo === "1" ? product.marketPrice : product.priceSale}`}{product.idUnitMeasureSaleFk === UNIT_TYPE.KG && product.unitweight >0 &&  ` x kg | ${product.unitweight}kg`}</small>
                                 </IonLabel>
                                 <IonText>{product.weight}</IonText>
                                 <IonButtons slot="end" style={{ margin: 0 }}>

@@ -55,6 +55,7 @@ export function useOrder() {
     }, [orderExist])
 
     async function existsAnOrder() {
+        console.log('entramos en existe una order')
         const order: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
         const thereIsOrder = (!!order && !!order[user.currentBusiness])
         if (!thereIsOrder) {
@@ -346,9 +347,10 @@ export function useOrder() {
 
     const calculateTotal = (products: Array<OrderItem>) => {
         let total = 0;
+    
         for (const product of products) {
             let subTotal = 0;
-            if (product.idUnitMeasureSaleFk === UNIT_TYPE.KG) {
+            if (product.idUnitMeasureSaleFk === UNIT_TYPE.KG && product.unitweight >0) {
                 subTotal =
                     product.weight *
                     (product.unitweight *
@@ -363,7 +365,9 @@ export function useOrder() {
                         : product.priceSale);
             }
             total += subTotal;
+          
         }
+        console.log('entramos en calcular total',total)
         return total;
     };
 
@@ -385,6 +389,7 @@ export function useOrder() {
             return;
         }
         const value = res.value.getValue().data.message[0].TOTAL;
+        console.log('este es el total',value)
         return value;
     };
 
@@ -455,6 +460,7 @@ export function useOrder() {
         addProductToOrder,
         removeProduct,
         calculateTotalRequest,
+        calculateTotal,
         orderExist,
         currentOrder,
         synchronyze,
