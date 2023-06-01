@@ -37,6 +37,7 @@ type StorageContextType = {
     authUser: Function;
     setData: (key: string, value: any) => Promise<void>;
     getData: (key: string) => Promise<any>;
+    removeData: (key: string) => Promise<any>;
     setCurrentBusiness: (businessId: number) => void;
     clearDb: Function;
 };
@@ -128,11 +129,17 @@ export const StorageProvider: React.FC<Props> = ({ children }) => {
     // End User
 
     async function setData(key: string, value: any): Promise<void> {
+        console.log('hola entramos en setdata')
         await store?.set(key, value);
     }
 
     async function getData(key: string): Promise<any> {
         return await store?.get(key);
+    }
+
+    async function removeData(key: string): Promise<any> {
+        console.log('entramos a borrar',key)
+        return await store?.remove(key);
     }
 
     async function clearDb() {
@@ -157,6 +164,7 @@ export const StorageProvider: React.FC<Props> = ({ children }) => {
                 setData,
                 setCurrentBusiness,
                 clearDb,
+                removeData
             }}
         >
             {children}

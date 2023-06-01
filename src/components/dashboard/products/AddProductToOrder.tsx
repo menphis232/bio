@@ -65,11 +65,16 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
         const currentOrder: CurrentOrderByBusiness = await getData(
             CURRENT_ORDER
         );
+        // console.log('error  en el carrito cuando cambio de empresa ',currentOrder,user,JSON.stringify(currentOrder[user.currentBusiness]))
+        var hasKey = Object.keys(currentOrder).some(x => x.toString() == user.currentBusiness.toString());
+console.log(hasKey);
         if (
+        
             !!currentOrder === true &&
-            Object.keys(currentOrder[user.currentBusiness]).length > 0
+            currentOrder[user.currentBusiness] && currentOrder[user.currentBusiness].length>0 && hasKey
         ) {
             setOrder(currentOrder[user.currentBusiness][0]);
+            console.log('aquica',currentOrder)
             setCurrentOrderId(
                 currentOrder[user.currentBusiness][0].idOrderH || 0
             );
@@ -128,7 +133,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
 
         const orders: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
         const order = orders[user.currentBusiness][0];
-        console.log(order, "order before set quantity");
+        console.log(orders, "order before set quantity");
 
         if (order.body) {
             const added = order.body?.find((p: OrderItem) => {
@@ -167,7 +172,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
     function calculateSubTotal(product: Product, quantity: number) {
         let subTotal = 0;
         if (product.idUnitMeasureSaleFk === UNIT_TYPE.KG && product.unitweight >0) {
-            console.log('total ', product)
+           
             subTotal =
                 quantity *
                 (product.unitweight *

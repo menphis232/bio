@@ -23,7 +23,7 @@ import { UNIT_TYPE } from "../../products/AddProductToOrder";
 
 export function useOrder() {
     const { post, get, remove, addRequest } = useRequest();
-    const { getData, setData, user } = useStorage();
+    const { getData,removeData, setData, user } = useStorage();
 
     const [orderExist, setOrderExist] = useState<boolean>(false);
     const [synchronyze, setSynchronyze] = useState({
@@ -39,7 +39,8 @@ export function useOrder() {
 
     async function handleSetCurrentOrder() {
         const order: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
-        const thereIsOrder = !!order && order[user.currentBusiness]
+        console.log('aqui obtenemos la orden',order)
+        const thereIsOrder = !!order && order[user.currentBusiness] && order[user.currentBusiness][0]
         if (!thereIsOrder) return
         if (orderExist) {
             setCurrentOrder(order[user.currentBusiness][0])
@@ -55,13 +56,19 @@ export function useOrder() {
     }, [orderExist])
 
     async function existsAnOrder() {
-        console.log('entramos en existe una order')
+    
         const order: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
-        const thereIsOrder = (!!order && !!order[user.currentBusiness])
+        const thereIsOrder = (!!order && !!order[user.currentBusiness] && order[user.currentBusiness][0])
+        console.log('esta es la orden acrtual',order)
+        console.log('este es el usuario',user.currentBusiness)
+        console.log('entramos en existe una order 232',order)
+        console.log('este es orden con arreglo',order[user.currentBusiness].length)
+        console.log('este es el thereisorder',thereIsOrder)
         if (!thereIsOrder) {
             return setOrderExist(false);
         }
         if (order[user.currentBusiness].length === 0) {
+         
             return setOrderExist(false);
         }
         const requests = await getData(REQUEST);
@@ -179,14 +186,18 @@ export function useOrder() {
         const thereIsRequest = (!!requests && requests.length > 0)
         if (!connection || thereIsRequest) {
             let orders: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
+            let ordersNew=await getData(CURRENT_ORDER);
             const updated = orders[user.currentBusiness].map((o: SaveOrder) => {
                 if (o.isComplete === false) {
                     o.isComplete = true;
                 }
                 return o;
             });
-            orders[user.currentBusiness] = updated;
-            await setData(CURRENT_ORDER, orders);
+           let deletes= ordersNew.splice(user.currentBusiness,1)
+            // orders[user.currentBusiness] = updated;
+            console.log('aqui para borrar',deletes)
+            await removeData(CURRENT_ORDER)
+            await setData(CURRENT_ORDER, deletes);
             setOrderExist(false); // test
             setCurrentOrder(null);//
             return addRequest({
@@ -440,7 +451,7 @@ export function useOrder() {
         await setData(LAST_SYNC_ORDERS, syncDate);
         setLastSync(new Date());
         await setData(MY_ORDERS, value);
-        console.log('valor',value)
+        console.log('estas son las ordenes',value)
         return value;
     };
 

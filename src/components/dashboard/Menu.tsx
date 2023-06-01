@@ -42,7 +42,7 @@ export const Menu: React.FC = () => {
         { name: "Carrito", icon: cart, url: "/dashboard/shopping-car" },
         { name: "Pedidos", icon: briefcase, url: "/dashboard/orders" },
         {
-            name: "Pedidos sin conexión",
+            name: "Pedidos a sincronizar",
             icon: syncCircle,
             url: "/dashboard/sync",
         },

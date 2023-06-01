@@ -43,7 +43,9 @@ const Car: React.FC = () => {
     // Modal
     useIonViewWillEnter(() => {
         existsAnOrder()
+      
         if (orderExist && currentOrder) {
+         
             getOrderById(currentOrder?.idOrderH as number);
         }
     })
@@ -73,29 +75,8 @@ const Car: React.FC = () => {
     };
    
 
-    // function calculateTotal(item: OrderItem) {
-    //     let subTotal = 0;
-    //     let total = 0;
-    //     if (item.idUnitMeasureSaleFk === UNIT_TYPE.KG && item.unitweight >0) {
-    //         subTotal =
-    //             item.weight *
-    //             (item.unitweight *
-    //                 (item.isPromo === "1"
-    //                     ? item.marketPrice
-    //                     : item.priceSale));
-    //     } else {
-    //         subTotal =
-    //             item.weight *
-    //             (item.isPromo === "1"
-    //                 ? item.marketPrice
-    //                 : item.priceSale);
-    //     }
-    //     total+=subTotal
-    //     return total
-    // }
-
     useEffect(() => {
-        console.log(currentOrder);
+        // console.log('esta es la orden',currentOrder)
         handleCalculateTotal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentOrder]);
@@ -136,6 +117,7 @@ const Car: React.FC = () => {
     const handleDeleteOrder = async (detail: any) => {
         if (detail.role !== "confirm") return;
         setLoading(true);
+        console.log('aqui vamos a borrsr',currentOrder)
         await changeStatus(Status.DELETED, currentOrder!.idOrderH);
         setLoading(false);
         presentToast({
