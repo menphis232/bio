@@ -12,6 +12,7 @@ import {
     useIonModal,
     useIonRouter,
     useIonToast,
+ 
     useIonViewWillEnter,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
@@ -41,6 +42,7 @@ const ProductsList: React.FC = () => {
 
     const { orderExist, existsAnOrder } = useOrder()
     const router = useIonRouter();
+    
 
     async function handleGetProducts(sync: boolean = false) {
         const conn = await currentNetworkStatus()
@@ -102,7 +104,7 @@ const ProductsList: React.FC = () => {
                 duration: 1500,
                 position: "top",
             });
-            router.push('/dashboard/shopping-car');
+          
             return
         }
         setProductToAdd(product);

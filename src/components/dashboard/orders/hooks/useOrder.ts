@@ -39,9 +39,11 @@ export function useOrder() {
 
     async function handleSetCurrentOrder() {
         const order: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
-        console.log('aqui obtenemos la orden',order)
+        console.log('aqui obtenemos la orden333',order)
         const thereIsOrder = !!order && order[user.currentBusiness] && order[user.currentBusiness][0]
+        
         if (!thereIsOrder) return
+        console.log('hola',thereIsOrder)
         if (orderExist) {
             setCurrentOrder(order[user.currentBusiness][0])
         } else {
@@ -62,7 +64,6 @@ export function useOrder() {
         console.log('esta es la orden acrtual',order)
         console.log('este es el usuario',user.currentBusiness)
         console.log('entramos en existe una order 232',order)
-        console.log('este es orden con arreglo',order[user.currentBusiness].length)
         console.log('este es el thereisorder',thereIsOrder)
         if (!thereIsOrder) {
             return setOrderExist(false);
@@ -208,11 +209,11 @@ export function useOrder() {
             });
            let deletes= ordersNew.splice(user.currentBusiness,1)
             // orders[user.currentBusiness] = updated;
-            console.log('aqui para borrar',deletes)
-            await removeData(CURRENT_ORDER)
-            await setData(CURRENT_ORDER, deletes);
-            setOrderExist(false); // test
-            setCurrentOrder(null);//
+            // console.log('aqui para borrar',deletes)
+            // await removeData(CURRENT_ORDER)
+            // await setData(CURRENT_ORDER, deletes);
+            // setOrderExist(false); // test
+            // setCurrentOrder(null);//
             return addRequest({
                 type: RequestType.SetOrderStatus,
                 method: "GET",
@@ -230,9 +231,9 @@ export function useOrder() {
             ...currentOrdersByBusiness,
             [user.currentBusiness]: [],
         };
-        await setData(CURRENT_ORDER, data);
-        setOrderExist(false);
-        setCurrentOrder(null);
+        // await setData(CURRENT_ORDER, data);
+        // setOrderExist(false);
+        // setCurrentOrder(null);
     };
 
     const removeProduct = async (product: OrderItem) => {

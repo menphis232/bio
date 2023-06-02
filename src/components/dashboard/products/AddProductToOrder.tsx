@@ -16,6 +16,7 @@ import {
     IonText,
     IonTitle,
     IonToolbar,
+    useIonRouter,
     useIonToast,
 } from "@ionic/react";
 import { Product } from "../../../../types/product";
@@ -49,11 +50,12 @@ export enum UNIT_TYPE {
 export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
     const { getData, user, environment } = useStorage();
     const { addProductToOrder, confirmProductQuantity, getOrderById } = useOrder();
-
+    const router = useIonRouter();
     const [loading, setLoading] = useState<boolean>(false);
     const [order, setOrder] = useState<SaveOrder>();
     const [cantidad, setCantidad] = useState(1)
     const form = useRef(null)
+    const [fullORder,fullsetorder]=useState<boolean>(false);
 
 
     useEffect(() => {
@@ -66,12 +68,12 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
             CURRENT_ORDER
         );
         // console.log('error  en el carrito cuando cambio de empresa ',currentOrder,user,JSON.stringify(currentOrder[user.currentBusiness]))
-        var hasKey = Object.keys(currentOrder).some(x => x.toString() == user.currentBusiness.toString());
-console.log(hasKey);
+        fullsetorder(Object.keys(currentOrder).some(x => x.toString() == user.currentBusiness.toString()));
+
         if (
         
             !!currentOrder === true &&
-            currentOrder[user.currentBusiness] && currentOrder[user.currentBusiness].length>0 && hasKey
+            currentOrder[user.currentBusiness] && currentOrder[user.currentBusiness].length>0 && fullORder
         ) {
             setOrder(currentOrder[user.currentBusiness][0]);
             console.log('aquica',currentOrder)
@@ -111,7 +113,17 @@ console.log(hasKey);
 
     const handleAddItem = async (product: Product, quantityProduct: number) => {
         const priceProductOrder = calculateProductPrice(product);
-
+       console.log('entramos a agregar',product)
+        if(!fullORder){
+            presentToast({
+                message: `Agrega un pedido antes de agregar un producto`,
+                duration: 3000,
+                position: "top",
+            });
+           
+            return
+        }
+      
         if (productAlreadyAdded(product.idProduct)) {
             /// logic to change quantity
             presentToast({
