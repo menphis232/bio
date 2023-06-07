@@ -15,6 +15,7 @@ import {
     MY_ORDERS,
     PRODUCTS_BY_BUSINESS,
     REQUEST,
+    USER,
     useStorage,
 } from "../../../../hooks/useStorage";
 import { currentNetworkStatus } from "../../../../utils/netWorkStatus";
@@ -39,11 +40,9 @@ export function useOrder() {
 
     async function handleSetCurrentOrder() {
         const order: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
-        console.log('aqui obtenemos la orden333',order)
         const thereIsOrder = !!order && order[user.currentBusiness] && order[user.currentBusiness][0]
         
         if (!thereIsOrder) return
-        console.log('hola',thereIsOrder)
         if (orderExist) {
             setCurrentOrder(order[user.currentBusiness][0])
         } else {
@@ -52,30 +51,26 @@ export function useOrder() {
     }
 
     useEffect(() => {
-        console.log('efect')
         handleSetCurrentOrder();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderExist])
 
     async function existsAnOrder() {
-    
         const order: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
-        const thereIsOrder = (!!order && !!order[user.currentBusiness] && order[user.currentBusiness][0])
-        console.log('esta es la orden acrtual',order)
-        console.log('este es el usuario',user.currentBusiness)
-        console.log('entramos en existe una order 232',order)
-        console.log('este es el thereisorder',thereIsOrder)
+        let newUser = await getData(USER);
+        const thereIsOrder = (!!order && !!order[newUser.currentBusiness] && order[newUser.currentBusiness][0])
+
         if (!thereIsOrder) {
             return setOrderExist(false);
         }
-        if (order[user.currentBusiness].length === 0) {
+        if (order[newUser.currentBusiness].length === 0) {
          
             return setOrderExist(false);
         }
         const requests = await getData(REQUEST);
         const thereIsRequest = (!!requests && requests.length > 1)
         if (thereIsRequest) {
-            let withoutComplete = order[user.currentBusiness].some(
+            let withoutComplete = order[newUser.currentBusiness].some(
                 (o: SaveOrder) => o.isComplete === false || o.isComplete === undefined
             );
             return setOrderExist(withoutComplete);
@@ -311,7 +306,6 @@ export function useOrder() {
         const connection = await currentNetworkStatus();
         const request = await getData(REQUEST);
         const thereIsRequest = !!request && request.length > 0;
-        console.log(thereIsRequest, 'there is request')
         if (!connection || thereIsRequest) {
             let orders: CurrentOrderByBusiness = await getData(CURRENT_ORDER);
             let order = orders[user.currentBusiness][0];

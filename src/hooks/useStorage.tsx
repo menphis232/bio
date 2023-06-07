@@ -7,7 +7,7 @@ import axios from "axios";
 import { User, UserBackUp } from "../../types/user";
 
 const ENVIRONMENT = "environ";
-const USER = "user";
+export const USER = "user";
 export const PRODUCTS_BY_BUSINESS = "products";
 export const CATEGORIES_BY_BUSINESS = "categories";
 export const SUB_CATEGORIES_BY_BUSINESS = "subCategories";
@@ -72,7 +72,7 @@ export const StorageProvider: React.FC<Props> = ({ children }) => {
 
     const [loading, setLoading] = useState<boolean>(true);
 
-    const initStore = async () => {
+    async function initStore(){
         // Storage
         const newStorage = new Storage({
             name: "phoneDb",
@@ -125,11 +125,11 @@ export const StorageProvider: React.FC<Props> = ({ children }) => {
             ...user,
             currentBusiness: businessId,
         });
+        initStore();
     }
     // End User
 
     async function setData(key: string, value: any): Promise<void> {
-        console.log('hola entramos en setdata')
         await store?.set(key, value);
     }
 
@@ -138,7 +138,6 @@ export const StorageProvider: React.FC<Props> = ({ children }) => {
     }
 
     async function removeData(key: string): Promise<any> {
-        console.log('entramos a borrar',key)
         return await store?.remove(key);
     }
 
@@ -153,6 +152,7 @@ export const StorageProvider: React.FC<Props> = ({ children }) => {
         return <IonLoading isOpen={loading}></IonLoading>;
     }
 
+
     return (
         <StorageContext.Provider
             value={{
@@ -164,7 +164,7 @@ export const StorageProvider: React.FC<Props> = ({ children }) => {
                 setData,
                 setCurrentBusiness,
                 clearDb,
-                removeData
+                removeData,
             }}
         >
             {children}

@@ -69,7 +69,6 @@ const ProductsList: React.FC = () => {
     }, [user.currentBusiness]);
 
     const handleSearchProducts = (e: any) => {
-        console.log('aui buscamos')
         setQuery((prev) => ({ ...prev, search: e.target.value }));
     };
     // End Products
@@ -97,7 +96,6 @@ const ProductsList: React.FC = () => {
     const [presentToast] = useIonToast();
 
     const openAddModal = (product: Product) => {
-        console.log('esta es la orden 2222',orderExist)
         if (!orderExist) {
             presentToast({
                 message: `Agrega un pedido antes de agregar un producto`,
@@ -112,8 +110,7 @@ const ProductsList: React.FC = () => {
     };
 
     const [presentAddProduct, dismissAddProduct] = useIonModal(
-        AddProductToOrder,
-        {
+        AddProductToOrder, {
             dismiss: closeAddModal,
             product: productToAdd,
         }

@@ -23,7 +23,6 @@ export const Header: React.FC<Props> = ({ title }) => {
         const business = user.business.find(
             (b) => b.idSucursal === user.currentBusiness
         );
-        console.log(business);
         setBusiness(business);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.currentBusiness]);

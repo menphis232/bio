@@ -42,21 +42,21 @@ const Car: React.FC = () => {
 
     // Modal
     useIonViewWillEnter(() => {
-        existsAnOrder()
-      
+        existsAnOrder()  
         if (orderExist && currentOrder) {
-         
             getOrderById(currentOrder?.idOrderH as number);
         }
     })
 
+    useEffect(() =>{
+        return () =>{
+            reset()
+        }
+    },[])
+
     useIonViewWillLeave(() => {
         reset()
     })
-
-    //useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    //}, [orderExist])
 
     const [presentToast] = useIonToast();
 
@@ -76,7 +76,6 @@ const Car: React.FC = () => {
    
 
     useEffect(() => {
-        // console.log('esta es la orden',currentOrder)
         handleCalculateTotal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentOrder]);
