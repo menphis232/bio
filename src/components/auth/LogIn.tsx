@@ -257,7 +257,7 @@ export const LogIn: React.FC = () => {
                                 fontSize: ".8rem",
                             }}
                         >
-                            Versión 0.0.1
+                            Versión 1.0.0
                         </p>
                     </form>
                 </main>
