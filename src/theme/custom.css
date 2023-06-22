@@ -2,3 +2,9 @@
 .test{
     background-color: red !important;
 }
+
+.badge-promo-product {
+    padding: 2px 4px;
+    font-size: 10px;
+    height: fit-content!important;
+}

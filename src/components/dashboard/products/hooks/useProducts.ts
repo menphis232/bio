@@ -20,6 +20,7 @@ export function useProducts() {
 		brand: 0,
 		line: 0,
 		isOnPromotion: false,
+		order: ''
 	});
 
 	const { get } = useRequest();
@@ -97,6 +98,14 @@ export function useProducts() {
 		if (query.isOnPromotion) {
 			// eslint-disable-next-line eqeqeq
 			list = list.filter((p) => p.isPromo == '1');
+		}
+		if (query.order) {
+			const comparador = (a, b) => {
+				const nameA = a.nameProduct.toUpperCase();
+				const nameB = b.nameProduct.toUpperCase();
+				return query.order === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+			};
+			list = list.sort(comparador)
 		}
 		return list;
 	}, [products, query]);

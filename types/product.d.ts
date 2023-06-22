@@ -37,4 +37,5 @@ export interface ProductQuery {
 	line: number;
 	brand: number;
 	isOnPromotion: false;
+	order: string;
 }

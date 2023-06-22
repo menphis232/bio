@@ -1,0 +1,10 @@
+.badge-promo-product {
+    padding: 2px 4px;
+    font-size: 8px;
+    height: fit-content!important;
+    margin-left: 9px;
+}
+
+.row-align-center{
+    align-items: center;
+}

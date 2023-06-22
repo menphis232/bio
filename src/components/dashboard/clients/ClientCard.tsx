@@ -37,11 +37,14 @@ export const ClientCard: React.FC<Props> = ({ client, openDetail }) => {
                 </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-                <IonCardSubtitle style={{ fontSize: "1.2rem" }}>
+                <IonCardSubtitle style={{ fontSize: ".9rem" }}>
                     <strong>Rif:</strong> {client?.numberDocument}
                 </IonCardSubtitle>
-                <IonCardSubtitle style={{ fontSize: "1.2rem" }}>
-                    <strong>Direccion:</strong> {client?.address}
+                <IonCardSubtitle style={{ fontSize: ".9rem" }}>
+                    <strong>Dirección fiscal:</strong> {client?.address}
+                </IonCardSubtitle>
+                <IonCardSubtitle style={{ fontSize: ".9rem" }}>
+                    <strong>Dirección <small>(opcional)</small>:</strong>
                 </IonCardSubtitle>
             </IonCardContent>
         </IonCard>

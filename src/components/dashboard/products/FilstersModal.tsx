@@ -34,6 +34,8 @@ interface Props {
     subCategories: Array<SubCategory>;
     lines: Array<Line>;
     brands: Array<Brand>;
+    getProducts: ({currentBusiness, value}) => void,
+    currentBusiness: Number
 }
 
 const FiltersModal: React.FC<Props> = ({
@@ -44,6 +46,8 @@ const FiltersModal: React.FC<Props> = ({
     subCategories,
     brands,
     lines,
+    getProducts,
+    currentBusiness
 }) => {
     const {
         register,
@@ -56,14 +60,11 @@ const FiltersModal: React.FC<Props> = ({
     });
 
     const onSubmit = (data: ProductQuery) => {
-        console.log(data, "data");
-        console.log(errors, "errors");
         setQuery(data);
         onClose();
     };
 
-    const onReset = () => {
-
+    const onReset = async () => {
         onSubmit({
             brand: 0,
             category:0,
@@ -73,11 +74,11 @@ const FiltersModal: React.FC<Props> = ({
             minPrice: 0,
             search: "",
             subCategory: 0,
+            order:""
         })
-      
-        // setQuery();
         reset();
-    };
+        getProducts({currentBusiness, value:true});
+    }
 
     return (
         <>
@@ -248,6 +249,29 @@ const FiltersModal: React.FC<Props> = ({
                                         {brand.name}
                                     </IonSelectOption>
                                 ))}
+                            </IonSelect>
+                        </IonItem>
+                        <IonItem style={{ marginBottom: "1rem", padding: "0" }}>
+                            <IonLabel>
+                                <strong>Orden alfabético:</strong>
+                            </IonLabel>
+                            <IonSelect
+                                {...register("order", {
+                                    required: false,
+                                })}
+                            >
+                                    <IonSelectOption
+                                        key={1}
+                                        value={'asc'}
+                                    >
+                                        Ascendente
+                                    </IonSelectOption>
+                                    <IonSelectOption
+                                        key={2}
+                                        value={'desc'}
+                                    >
+                                        Descendente
+                                    </IonSelectOption>
                             </IonSelect>
                         </IonItem>
                         <IonItem>

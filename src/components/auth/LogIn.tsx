@@ -90,7 +90,7 @@ export const LogIn: React.FC = () => {
         setLoading(false);
         presentToast(res.message);
         reset(initialValues);
-        router.push("/dashboard/home");
+        router.push("/dashboard/products");
     };
 
     const [present] = useIonToast();
@@ -107,7 +107,7 @@ export const LogIn: React.FC = () => {
     async function alreadyLogin() {
         const token = await getData(TOKEN);
         if (token) {
-            router.push('/dashboard/home')
+            router.push('/dashboard/products')
         }
     }
 

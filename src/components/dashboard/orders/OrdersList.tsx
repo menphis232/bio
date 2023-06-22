@@ -14,11 +14,12 @@ import {
     useIonModal,
     useIonToast,
 } from "@ionic/react";
+import dayjs from 'dayjs'
 
 import { OrderCard } from "./OrderCard";
 import { Header } from "../Header";
 import { useOrder } from "./hooks/useOrder";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStorage } from "../../../hooks/useStorage";
 import { Order } from "../../../../types/order";
 import OrderDetail from "./OrderDetail";
@@ -54,6 +55,14 @@ const OrderList: React.FC = () => {
         })
     }
 
+    useEffect(() => {
+        let date = dayjs().format('YYYY-MM-DD');
+        let finalDates = {
+            dateStart: date,
+            dateEnd: date,
+        }
+        handleGetOrders(finalDates, true)
+    },[])
     const orderPickerRef = useRef<HTMLIonDatetimeElement & DatePicker>(null);
 
     async function handleGetOrders(dates?: Dates, sync = false) {

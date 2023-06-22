@@ -41,8 +41,10 @@ const ProductsList: React.FC = () => {
         useCategories();
 
     const { orderExist, existsAnOrder } = useOrder()
-    const router = useIonRouter();
     
+    useEffect(() => {
+        handleGetProducts(true)
+    },[])
 
     async function handleGetProducts(sync: boolean = false) {
         const conn = await currentNetworkStatus()
@@ -85,6 +87,8 @@ const ProductsList: React.FC = () => {
         subCategories,
         lines,
         brands,
+        getProducts,
+        currentBusiness:user.currentBusiness
     });
 
 
