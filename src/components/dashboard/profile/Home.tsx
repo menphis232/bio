@@ -71,7 +71,7 @@ const Home: React.FC = () => {
     const openAddModal = (product: Product) => {
         if (!orderExist) {
             presentToast({
-                message: `Agrega un pedido antes de agregar un producto`,
+                message: `Crea un pedido antes de agregar un producto`,
                 duration: 1500,
                 position: "top",
             });

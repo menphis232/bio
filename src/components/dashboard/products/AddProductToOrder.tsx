@@ -107,7 +107,7 @@ export const AddProductToOrder: React.FC<Props> = ({ product, dismiss }) => {
 
     if (!fullORder) {
       presentToast({
-        message: `Agrega un pedido antes de agregar un producto`,
+        message: `Crea un pedido antes de agregar un producto`,
         duration: 3000,
         position: "top",
       });
