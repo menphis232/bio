@@ -9,7 +9,7 @@ interface Props {
 
 
 const Notifications: React.FC<Props> = (props) => {
-  // Lógica y renderizado del componente
+
   return (
     <div>
       {}
