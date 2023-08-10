@@ -31,6 +31,7 @@ import CarPage from "../../components/dashboard/car/CarPage";
 import { SyncContainer } from "./sync/SyncContainer";
 import ProductDetail from "./products/ProductDetail";
 import MyProfile from "./profile/MyProfile";
+import Notifications from "../notifications/Notifications";
 
 export const Menu: React.FC = () => {
     const paths = [
@@ -55,6 +56,7 @@ export const Menu: React.FC = () => {
                     <IonHeader>
                         <IonToolbar color="primary">
                             <IonTitle color="light">Menú</IonTitle>
+                        <Notifications />
                         </IonToolbar>
                     </IonHeader>
                     <IonContent className="ion-padding">
